@@ -1,0 +1,15 @@
+@import 'utils';
+
+.footer{
+  background: $oc-gray-7;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .title{
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+}

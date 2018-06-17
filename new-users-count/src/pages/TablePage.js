@@ -1,11 +1,13 @@
 import React from 'react';
+import PageTemplate from 'components/common/PageTemplate'
+import TableContainer from 'containers/TableContainer'
 
-const TablePage = () => {
+const Tablepage = () => {
   return (
-    <div>
-      table
-    </div>
+    <PageTemplate>
+      <TableContainer/>
+    </PageTemplate>
   );
 };
 
-export default TablePage;
+export default Tablepage;
