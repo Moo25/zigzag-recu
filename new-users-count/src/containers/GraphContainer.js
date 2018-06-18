@@ -8,6 +8,7 @@ class GraphContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
+      chartData:{},
       userSetting: {
         xAxisStart: 60,
         xAxisEnd: 228
@@ -39,8 +40,50 @@ class GraphContainer extends Component {
       })
     }
   }
+  changeState = () => {
+    let { xAxisStart,xAxisEnd } = this.state.userSetting
+    const ALL_Data = JSON.parse(localStorage.getItem('ALL_Data'))
+    const Android_Data = JSON.parse(localStorage.getItem('Android_Data'))
+    const IOS_Data = JSON.parse(localStorage.getItem('IOS_Data'))
+
+    this.setState({
+      chartData:{
+        labels: (Object.keys(ALL_Data)).slice(xAxisStart,xAxisEnd+1),
+        datasets:[
+          {
+            label:'전체',
+            data:Object.values(ALL_Data).slice(xAxisStart,xAxisEnd+1),
+            borderColor:'#1864ab',
+            backgroundColor: "rgba(220,220,220,0)",
+            pointBackgroundColor: '#1864ab',
+            borderWidth: 1,
+            pointRadius: 0
+          },
+          {
+            label:'안드로이드',
+            data:Object.values(Android_Data).slice(xAxisStart,xAxisEnd+1),
+            borderColor:'#c92a2a',
+            backgroundColor:  "rgba(220,220,220,0)",
+            pointBackgroundColor: '#c92a2a',
+            borderWidth: 1,
+            pointRadius: 0
+          },
+          {
+            label:'IOS',
+            data:Object.values(IOS_Data).slice(xAxisStart,xAxisEnd+1),
+            borderColor:'#fab005',
+            backgroundColor: "rgba(220,220,220,0)",
+            pointBackgroundColor: '#fab005',
+            borderWidth: 1,
+            pointRadius: 0
+          }
+        ]
+      }
+    });
+  }
 
   componentWillMount(){
+    console.log('componentWillMount')
     let ALL_Data = {} // object 형태로 다시 파싱합니다. key: "MM/DD/HH시" 꼴의 string, value: 출현빈도수
     let IOS_Data = {}
     let Android_Data = {}
@@ -77,94 +120,20 @@ class GraphContainer extends Component {
     localStorage.setItem('IOS_Data',JSON.stringify(IOS_Data))
     localStorage.setItem('Android_Data',JSON.stringify(Android_Data))
 
-    let { xAxisStart,xAxisEnd } = this.state.userSetting
-
-    this.setState({
-      chartData:{
-        labels: (Object.keys(ALL_Data)).slice(xAxisStart,xAxisEnd+1),
-        datasets:[
-          {
-            label:'전체',
-            data:Object.values(ALL_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#1864ab',
-            backgroundColor: "rgba(220,220,220,0)",
-            pointBackgroundColor: '#1864ab',
-            borderWidth: 1,
-            pointRadius: 0
-          },
-          {
-            label:'안드로이드',
-            data:Object.values(Android_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#c92a2a',
-            backgroundColor:  "rgba(220,220,220,0)",
-            pointBackgroundColor: '#c92a2a',
-            borderWidth: 1,
-            pointRadius: 0
-          },
-
-          {
-            label:'IOS',
-            data:Object.values(IOS_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#fab005',
-            backgroundColor: "rgba(220,220,220,0)",
-            pointBackgroundColor: '#fab005',
-            borderWidth: 1,
-            pointRadius: 0
-          }
-        ]
-      }
-    });
+    this.changeState()
   }
 
   shouldComponentUpdate(nextProps,nextState){
+    console.log('shouldComponentUpdate')
     return this.state.userSetting !== nextState.userSetting
   }
 
   componentWillUpdate(nextProps,nextState){
-    const ALL_Data = JSON.parse(localStorage.getItem('ALL_Data'))
-    const Android_Data = JSON.parse(localStorage.getItem('Android_Data'))
-    const IOS_Data = JSON.parse(localStorage.getItem('IOS_Data'))
-
-    const { xAxisStart, xAxisEnd } = this.state.userSetting
-    this.setState({
-      chartData:{
-        labels: (Object.keys(ALL_Data)).slice(xAxisStart,xAxisEnd+1),
-        datasets:[
-          {
-            label:'전체',
-            data:Object.values(ALL_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#1864ab',
-            backgroundColor: "rgba(220,220,220,0)",
-            pointBackgroundColor: '#1864ab',
-            borderWidth: 1,
-            pointRadius: 0
-          },
-          {
-            label:'안드로이드',
-            data:Object.values(Android_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#c92a2a',
-            backgroundColor:  "rgba(220,220,220,0)",
-            pointBackgroundColor: '#c92a2a',
-            borderWidth: 1,
-            pointRadius: 0
-          },
-
-          {
-            label:'IOS',
-            data:Object.values(IOS_Data).slice(xAxisStart,xAxisEnd+1),
-            borderColor:'#fab005',
-            backgroundColor: "rgba(220,220,220,0)",
-            pointBackgroundColor: '#fab005',
-            borderWidth: 1,
-            pointRadius: 0
-          }
-        ]
-      }
-    })
+    console.log('componentWillUpdate')
+    this.changeState()
   }
 
   render() {
-
     return (
       <GraphView
         chartData={this.state.chartData}
