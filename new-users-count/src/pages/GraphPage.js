@@ -4,7 +4,7 @@ import GraphContainer from 'containers/GraphContainer'
 
 const GraphPage = () => (
   <PageTemplate>
-    <GraphContainer/>
+    <GraphContainer />
   </PageTemplate>
 );
 

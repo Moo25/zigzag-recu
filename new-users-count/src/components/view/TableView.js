@@ -5,7 +5,7 @@ import classNames from 'classnames/bind'
 const cx = classNames.bind(styles)
 
 const TableView = () => (
-  <div>
+  <div className={cx('hi')}>
     저는 테이블 뷰입니다
   </div>
 );

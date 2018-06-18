@@ -1,1 +1,13 @@
-@import 'utils'
+@import 'utils';
+
+.graph{
+  padding: 10px;
+  position: relative;
+  overflow-x: scroll;
+  width: 95%;
+  .graph-container{
+    height: 500px;
+    width: 1500qpx;
+    min-width: 100%;
+  }
+}
