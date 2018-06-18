@@ -1,6 +1,6 @@
 # zigzag new users count per hour
 
-> 배포 주소 :
+> 배포 주소 : https://hizigzagimchangmoo.herokuapp.com/
 
 ## Stack
 
