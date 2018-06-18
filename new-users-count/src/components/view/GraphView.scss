@@ -10,4 +10,13 @@
     width: 1500qpx;
     min-width: 100%;
   }
+  .buttons{
+    display:flex;
+    align-content: center;
+    justify-content: center;
+    padding-left: 3.5rem;
+    .button{
+      padding: 0 1rem 0 1rem;
+    }
+  }
 }
